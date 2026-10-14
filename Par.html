@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paradise Pizzeria &amp; Burger — Saris, Addis Ababa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2a2520;
+    --charcoal-2:#352e27;
+    --gold:#f3b53c;
+    --gold-dim:#d99a24;
+    --terracotta:#e0612a;
+    --cream:#fbf3e6;
+    --cream-2:#f3e6d0;
+    --wood:#5c3a21;
+    --ink:#2a2520;
+    --ink-soft:#6b5f53;
+    --line:#e7d8c0;
+    --card:#ffffff;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --cream:#1b1714;
+      --cream-2:#241e19;
+      --ink:#f3e9db;
+      --ink-soft:#c9bba9;
+      --line:#3a3027;
+      --card:#241e19;
+    }
+  }
+  :root[data-theme="dark"]{
+    --cream:#1b1714;
+    --cream-2:#241e19;
+    --ink:#f3e9db;
+    --ink-soft:#c9bba9;
+    --line:#3a3027;
+    --card:#241e19;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Outfit',system-ui,sans-serif;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:40; top:env(safe-area-inset-top,0px);
+    background:var(--charcoal); border-bottom:3px solid var(--gold);
+  }
+  .nav-inner{max-width:1080px; margin:0 auto; padding:12px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .brandmark{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .badge{width:42px; height:42px; flex:none;}
+  .wordmark{font-family:'Pacifico',cursive; color:var(--gold); font-size:1.5rem; line-height:1;}
+  .wordmark small{display:block; font-family:'Outfit',sans-serif; font-size:0.55rem;
+    letter-spacing:.14em; color:var(--cream); font-weight:600; margin-top:2px;}
+  nav.links{display:flex; gap:22px; font-size:0.92rem; font-weight:500;}
+  nav.links a{color:var(--cream); text-decoration:none; opacity:.85;}
+  nav.links a:hover{opacity:1; color:var(--gold);}
+  @media (max-width:640px){ nav.links{display:none;} }
+
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(243,181,60,.25), transparent 55%),
+      linear-gradient(180deg, var(--charcoal), var(--charcoal-2));
+    color:var(--cream); position:relative; overflow:hidden;
+    padding:72px 0 56px;
+  }
+  .hero-stripe{position:absolute; left:0; right:0; bottom:-2px; height:46px;
+    background:var(--terracotta);
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-inner{position:relative; z-index:2;}
+  .kicker{font-size:.85rem; letter-spacing:.04em; color:var(--gold); font-weight:600;}
+  h1.hero-title{font-family:'Pacifico',cursive; font-weight:400; font-size:clamp(3rem,10vw,5.4rem);
+    margin:6px 0 2px; color:var(--gold); line-height:1;}
+  .hero-sub{font-size:1.15rem; font-weight:600; color:var(--cream); margin:0 0 18px;}
+  .hero-desc{max-width:52ch; color:#d8cdbd; line-height:1.6; margin:0 0 26px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px;}
+  .chip{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    color:var(--cream); padding:7px 14px; border-radius:999px; font-size:.85rem; font-weight:500;}
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:10px;
+    font-weight:700; text-decoration:none; font-size:.95rem; border:2px solid transparent; cursor:pointer;}
+  .btn-primary{background:var(--gold); color:var(--charcoal);}
+  .btn-primary:hover{background:var(--gold-dim);}
+  .btn-ghost{background:transparent; color:var(--cream); border-color:rgba(255,255,255,.35);}
+  .btn-ghost:hover{border-color:var(--cream);}
+
+  section{padding:64px 0;}
+  h2.section-title{font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 8px; font-weight:800;}
+  .section-lede{color:var(--ink-soft); max-width:62ch; margin:0 0 34px; line-height:1.6;}
+
+  /* ABOUT / FEATURES */
+  .feat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;}
+  .feat .ico{font-size:1.4rem; margin-bottom:8px;}
+  .feat h3{margin:0 0 4px; font-size:.98rem;}
+  .feat p{margin:0; font-size:.84rem; color:var(--ink-soft); line-height:1.4;}
+
+  /* MENU */
+  .menu-section{background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .menu-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  #owner-tools{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn-sm{padding:9px 16px; border-radius:8px; font-weight:700; font-size:.82rem; cursor:pointer; border:2px solid var(--wood); background:transparent; color:var(--wood);}
+  .btn-sm.solid{background:var(--wood); color:var(--cream);}
+  .cat{margin-top:40px;}
+  .cat h3{font-size:1.2rem; border-bottom:2px solid var(--gold); display:inline-block; padding-bottom:4px; margin-bottom:18px;}
+  .item-row{display:flex; justify-content:space-between; gap:18px; padding:13px 0; border-bottom:1px dashed var(--line);}
+  .item-row:last-child{border-bottom:none;}
+  .item-name{font-weight:700; font-size:1rem;}
+  .item-desc{color:var(--ink-soft); font-size:.86rem; margin-top:2px; max-width:52ch;}
+  .item-price{font-weight:800; color:var(--terracotta); white-space:nowrap; font-size:1rem;}
+  .edit-note{font-size:.8rem; color:var(--ink-soft); margin-top:30px;}
+
+  /* edit mode form */
+  .edit-cat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-top:24px;}
+  .edit-cat input.cat-name{font-size:1.1rem; font-weight:700; border:none; border-bottom:2px solid var(--gold); background:transparent; padding:4px 0; margin-bottom:14px; width:100%; color:var(--ink);}
+  .edit-item{display:grid; grid-template-columns:1fr 100px auto; gap:8px; margin-bottom:8px; align-items:start;}
+  .edit-item textarea, .edit-item input{font-family:inherit; border:1px solid var(--line); border-radius:6px; padding:7px 9px; width:100%; background:var(--cream); color:var(--ink); font-size:.88rem;}
+  .edit-item textarea{resize:vertical; min-height:38px;}
+  .remove-btn{background:none; border:none; color:#b43; font-size:1.1rem; cursor:pointer; padding:4px;}
+  .add-item-btn{font-size:.82rem; font-weight:600; background:none; border:1px dashed var(--ink-soft); color:var(--ink-soft); border-radius:6px; padding:6px 12px; cursor:pointer;}
+  .edit-bar{display:flex; gap:10px; margin-top:26px; flex-wrap:wrap;}
+  #save-status{font-size:.85rem; margin-top:10px;}
+
+  /* GALLERY */
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;}
+  .tile{border-radius:16px; padding:22px 18px; min-height:150px; color:#fff; display:flex; flex-direction:column; justify-content:flex-end; position:relative; overflow:hidden;}
+  .tile h4{margin:0 0 2px; font-size:1.02rem;}
+  .tile span{font-size:.78rem; opacity:.85;}
+  .tile.t1{background:linear-gradient(160deg,#c9471f,#7a2a10);}
+  .tile.t2{background:linear-gradient(160deg,#8a5a24,#4a3015);}
+  .tile.t3{background:linear-gradient(160deg,#3c6e3f,#1f3a20);}
+  .tile.t4{background:linear-gradient(160deg,#b98a2e,#6b4f15);}
+
+  /* VISIT */
+  .visit-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:40px;}
+  @media (max-width:760px){ .visit-grid{grid-template-columns:1fr;} }
+  .info-line{display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--line);}
+  .info-line .ico{font-size:1.2rem; flex:none;}
+  .info-line h4{margin:0 0 3px; font-size:.92rem;}
+  .info-line p{margin:0; color:var(--ink-soft); font-size:.88rem; line-height:1.5;}
+  .map-card{background:var(--charcoal); color:var(--cream); border-radius:16px; padding:26px; position:relative; overflow:hidden;}
+  .map-card h3{margin:0 0 8px; font-family:'Pacifico',cursive; color:var(--gold); font-weight:400; font-size:1.6rem;}
+  .map-card p{color:#d8cdbd; font-size:.88rem; line-height:1.5; margin:0 0 18px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .tag{font-size:.74rem; background:var(--cream-2); color:var(--ink); border-radius:999px; padding:5px 11px; border:1px solid var(--line);}
+
+  /* REVIEWS */
+  .review-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;}
+  .review{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px;
+    clip-path:polygon(6% 0,94% 0,100% 14%,100% 100%,0 100%,0 14%);}
+  .stars{color:var(--gold); letter-spacing:2px; margin-bottom:8px;}
+  .review p{margin:0 0 10px; font-size:.9rem; line-height:1.5;}
+  .review span{font-size:.78rem; color:var(--ink-soft); font-weight:600;}
+
+  footer{background:var(--charcoal); color:#d8cdbd; padding:40px 0 calc(28px + env(safe-area-inset-bottom,0px));}
+  .footer-inner{display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; align-items:center;}
+  footer .wordmark{font-size:1.2rem;}
+  footer small{font-size:.78rem; opacity:.7;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brandmark" href="#top">
+      <svg class="badge" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="23" fill="#2a2520" stroke="#f3b53c" stroke-width="2"/>
+        <path d="M14 27c0-6 4-10 10-10s10 4 10 10" fill="none" stroke="#fbf3e6" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M13 27h22l-2 7a2 2 0 0 1-2 1.6H17a2 2 0 0 1-2-1.6l-2-7z" fill="#f3b53c"/>
+        <circle cx="19" cy="31" r="1.3" fill="#2a2520"/>
+        <circle cx="24" cy="32.5" r="1.3" fill="#2a2520"/>
+        <circle cx="29" cy="31" r="1.3" fill="#2a2520"/>
+      </svg>
+      <span class="wordmark">Paradise<small>PIZZERIA &amp; BURGER</small></span>
+    </a>
+    <nav class="links">
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit</a>
+      <a href="tel:0911314944">Call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="kicker">Saris · Addis Ababa</div>
+      <h1 class="hero-title">Paradise</h1>
+      <p class="hero-sub">Pizzeria &amp; Burger — ፓራዳይዝ ፒዛና በርገር</p>
+      <p class="hero-desc">A cosy, trendy corner in Saris for big burgers, wood-fired pizza and
+        all-day plates — casual enough for a solo lunch, big enough for the whole group.</p>
+      <div class="chip-row">
+        <span class="chip">★ 4.2 on Google (10 reviews)</span>
+        <span class="chip">Dine-in &amp; Takeaway</span>
+        <span class="chip">Open today · closes 9:00 PM</span>
+        <span class="chip">Halal</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#menu">View the menu</a>
+        <a class="btn btn-ghost" href="https://maps.app.goo.gl/zXjgus8Po8d3pQuu6?g_st=ac" target="_blank" rel="noopener">Get directions</a>
+        <a class="btn btn-ghost" href="tel:0911314944">Call to reserve</a>
+      </div>
+    </div>
+    <div class="hero-stripe"></div>
+  </section>
+
+  <section id="about" class="wrap">
+    <h2 class="section-title">Good food, no fuss</h2>
+    <p class="section-lede">Popular with groups, tourists and regulars alike for lunch and dinner —
+      quick enough for a solo bite, relaxed enough to linger over a late-night sandwich.</p>
+    <div class="feat-grid">
+      <div class="feat"><div class="ico">🍕</div><h3>Halal menu</h3><p>Pizzas, burgers, sandwiches &amp; coffee, all halal.</p></div>
+      <div class="feat"><div class="ico">🌙</div><h3>Late-night food</h3><p>Still serving when other kitchens have closed.</p></div>
+      <div class="feat"><div class="ico">👨‍👩‍👧</div><h3>Good for kids</h3><p>A relaxed, family-friendly dining room.</p></div>
+      <div class="feat"><div class="ico">♿</div><h3>Accessible</h3><p>Wheelchair-accessible parking &amp; restroom.</p></div>
+      <div class="feat"><div class="ico">🚗</div><h3>Free parking</h3><p>Street parking plus a free parking lot on-site.</p></div>
+      <div class="feat"><div class="ico">📱</div><h3>Tap to pay</h3><p>NFC mobile payments accepted.</p></div>
+      <div class="feat"><div class="ico">📅</div><h3>Reservations</h3><p>Call ahead and we'll hold your table.</p></div>
+      <div class="feat"><div class="ico">☕</div><h3>Coffee &amp; small plates</h3><p>Good for a quick bite, not just a full meal.</p></div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu-section">
+    <div class="wrap">
+      <div class="menu-head">
+        <div>
+          <h2 class="section-title">Menu</h2>
+          <p class="section-lede" style="margin-bottom:0;">A few house favourites — the full menu is on hand in-house.</p>
+        </div>
+        <div id="owner-tools">
+          <button id="edit-menu-btn" class="btn-sm" hidden>Edit menu</button>
+        </div>
+      </div>
+
+      <div id="menu-display"></div>
+
+      <script type="application/json" id="menu-json">
+{
+  "categories": [
+    {
+      "name": "Pizza",
+      "items": [
+        {"name":"Margherita", "price":"from 350 ETB", "desc":"Tomato, mozzarella, fresh basil."},
+        {"name":"Paradise Special", "price":"from 480 ETB", "desc":"Beef, peppers, onion, mozzarella, house sauce."},
+        {"name":"Veggie Supreme", "price":"from 420 ETB", "desc":"Mushroom, pepper, olive, onion, mozzarella."}
+      ]
+    },
+    {
+      "name": "Burgers",
+      "items": [
+        {"name":"Paradise Special Burger", "price":"420 ETB", "desc":"Double beef patty, cheese, fries on the side — a guest favourite."},
+        {"name":"Classic Cheeseburger", "price":"320 ETB", "desc":"Beef patty, cheddar, lettuce, tomato, house sauce."},
+        {"name":"Sunset Bun", "price":"390 ETB", "desc":"Grilled patty, fried egg, smoked sauce, rooftop-terrace views optional."}
+      ]
+    },
+    {
+      "name": "Sandwiches & Salads",
+      "items": [
+        {"name":"Club Sandwich", "price":"330 ETB", "desc":"Triple-decker with fries — recommended by regulars."},
+        {"name":"Tuna Sandwich", "price":"300 ETB", "desc":"Tuna, egg, fresh veg, toasted bread."},
+        {"name":"Avocado Crunch Salad", "price":"280 ETB", "desc":"Avocado, boiled egg, crispy wonton strips."}
+      ]
+    },
+    {
+      "name": "Drinks",
+      "items": [
+        {"name":"Macchiato", "price":"60 ETB", "desc":"Ethiopian coffee, done right."},
+        {"name":"Fresh Juice", "price":"110 ETB", "desc":"Ask about today's flavour."},
+        {"name":"Soft Drinks", "price":"60 ETB", "desc":"Coke, Sprite, Fanta, sparkling water."}
+      ]
+    }
+  ]
+}
+      </script>
+
+      <p class="edit-note">Menu &amp; prices are updated by Paradise Pizzeria &amp; Burger — only the page owner can edit them here.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="section-title">From the table</h2>
+    <p class="section-lede">A few plates guests keep coming back for.</p>
+    <div class="gallery-grid">
+      <div class="tile t1"><h4>Paradise Special Burger</h4><span>Double patty, loaded fries</span></div>
+      <div class="tile t2"><h4>Club Sandwich</h4><span>Triple-decker, crisp fries</span></div>
+      <div class="tile t3"><h4>Avocado Crunch Salad</h4><span>Avocado, egg, crispy wonton</span></div>
+      <div class="tile t4"><h4>Rooftop Terrace</h4><span>Sunset views over Saris</span></div>
+    </div>
+  </section>
+
+  <section id="visit" class="wrap">
+    <h2 class="section-title">Visit us</h2>
+    <div class="visit-grid">
+      <div>
+        <div class="info-line"><div class="ico">📍</div><div><h4>Address</h4><p>Saris, Addis Ababa — XQ36+2P3, Unnamed Road</p></div></div>
+        <div class="info-line"><div class="ico">🕘</div><div><h4>Hours</h4><p>Open daily, closing at 9:00 PM. Evenings around 6 PM tend to be quieter.</p></div></div>
+        <div class="info-line"><div class="ico">☎️</div><div><h4>Phone</h4><p><a href="tel:0911314944">0911 31 49 44</a> · <a href="tel:0943002849">0943 00 28 49</a> · <a href="tel:0114709329">011 470 93 29</a></p></div></div>
+        <div class="info-line"><div class="ico">🍽️</div><div><h4>Good to know</h4><p>Dine-in, takeaway and table service. Casual, cosy and trendy, popular with groups and tourists.</p></div></div>
+      </div>
+      <div class="map-card">
+        <h3>Find us</h3>
+        <p>Open the location in Google Maps for live directions, hours and photos.</p>
+        <a class="btn btn-primary" href="https://maps.app.goo.gl/zXjgus8Po8d3pQuu6?g_st=ac" target="_blank" rel="noopener">Open in Google Maps</a>
+        <div class="tag-row">
+          <span class="tag">Wheelchair-accessible parking</span>
+          <span class="tag">Wheelchair-accessible toilet</span>
+          <span class="tag">Free parking lot</span>
+          <span class="tag">Free street parking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="section-title">What guests say</h2>
+    <div class="review-grid">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Says the meat here is some of the best in Addis right now, with generous portions and fair prices.</p>
+        <span>Google review, Local Guide</span>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>A relatively new spot that's become popular with younger regulars, who praise the smoothies and clean kitchen.</p>
+        <span>Google review</span>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>Delivery arrives fast and hot — called one of the better options nearby for food on short notice.</p>
+        <span>Google review</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="wordmark">Paradise<br><small style="font-family:'Outfit',sans-serif; letter-spacing:.1em; font-size:.6rem;">PIZZERIA &amp; BURGER</small></div>
+    <div>
+      <small>Saris, Addis Ababa · 0911 31 49 44</small><br>
+      <small>© <span id="year"></span> Paradise Pizzeria &amp; Burger</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){ document.getElementById('year').textContent = new Date().getFullYear(); })();
+
+function getMenuData(){
+  try { return JSON.parse(document.getElementById('menu-json').textContent); }
+  catch(e){ return {categories:[]}; }
+}
+function setMenuData(data){
+  document.getElementById('menu-json').textContent = JSON.stringify(data, null, 2);
+}
+
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function renderMenuDisplay(){
+  const data = getMenuData();
+  const el = document.getElementById('menu-display');
+  if(!data.categories || !data.categories.length){
+    el.innerHTML = '<p class="section-lede">The menu is being updated — please check back soon.</p>';
+    return;
+  }
+  el.innerHTML = data.categories.map(function(cat){
+    const items = (cat.items||[]).map(function(it){
+      return '<div class="item-row">' +
+        '<div><div class="item-name">'+escapeHtml(it.name)+'</div>' +
+        (it.desc ? '<div class="item-desc">'+escapeHtml(it.desc)+'</div>' : '') +
+        '</div>' +
+        '<div class="item-price">'+escapeHtml(it.price)+'</div>' +
+        '</div>';
+    }).join('');
+    return '<div class="cat"><h3>'+escapeHtml(cat.name)+'</h3>'+items+'</div>';
+  }).join('');
+}
+
+function renderMenuEditor(){
+  const data = getMenuData();
+  const el = document.getElementById('menu-display');
+  el.innerHTML = data.categories.map(function(cat, ci){
+    const items = (cat.items||[]).map(function(it, ii){
+      return '<div class="edit-item" data-cat="'+ci+'" data-item="'+ii+'">' +
+        '<textarea class="f-name" placeholder="Item name">'+escapeHtml(it.name)+'</textarea>' +
+        '<input class="f-price" placeholder="Price" value="'+escapeHtml(it.price)+'">' +
+        '<button class="remove-btn" data-action="remove-item" data-cat="'+ci+'" data-item="'+ii+'" title="Remove item">✕</button>' +
+        '<textarea class="f-desc" placeholder="Description" style="grid-column:1/3;">'+escapeHtml(it.desc||'')+'</textarea>' +
+        '</div>';
+    }).join('');
+    return '<div class="edit-cat" data-cat="'+ci+'">' +
+      '<input class="cat-name" placeholder="Category name" value="'+escapeHtml(cat.name)+'">' +
+      items +
+      '<button class="add-item-btn" data-action="add-item" data-cat="'+ci+'">+ Add item</button> ' +
+      '<button class="remove-btn" data-action="remove-cat" data-cat="'+ci+'" title="Remove category">Remove category ✕</button>' +
+      '</div>';
+  }).join('') +
+  '<div class="edit-bar">' +
+    '<button class="btn-sm" id="add-cat-btn">+ Add category</button>' +
+    '<button class="btn-sm solid" id="save-menu-btn">Save menu</button>' +
+    '<button class="btn-sm" id="cancel-edit-btn">Cancel</button>' +
+  '</div>' +
+  '<div id="save-status"></div>';
+
+  el.addEventListener('click', onEditorClick);
+  document.getElementById('add-cat-btn').onclick = function(){
+    const d = readEditorIntoData();
+    d.categories.push({name:'New category', items:[{name:'New item', price:'', desc:''}]});
+    setMenuData(d);
+    renderMenuEditor();
+  };
+  document.getElementById('save-menu-btn').onclick = saveMenu;
+  document.getElementById('cancel-edit-btn').onclick = function(){
+    renderMenuDisplay();
+  };
+}
+
+function onEditorClick(e){
+  const btn = e.target.closest('[data-action]');
+  if(!btn) return;
+  const d = readEditorIntoData();
+  const ci = parseInt(btn.dataset.cat, 10);
+  if(btn.dataset.action === 'remove-cat'){
+    d.categories.splice(ci, 1);
+  } else if(btn.dataset.action === 'add-item'){
+    d.categories[ci].items.push({name:'New item', price:'', desc:''});
+  } else if(btn.dataset.action === 'remove-item'){
+    const ii = parseInt(btn.dataset.item, 10);
+    d.categories[ci].items.splice(ii, 1);
+  }
+  setMenuData(d);
+  renderMenuEditor();
+}
+
+function readEditorIntoData(){
+  const cats = Array.from(document.querySelectorAll('.edit-cat'));
+  const data = { categories: cats.map(function(catEl){
+    const items = Array.from(catEl.querySelectorAll('.edit-item')).map(function(itEl){
+      return {
+        name: itEl.querySelector('.f-name').value.trim(),
+        price: itEl.querySelector('.f-price').value.trim(),
+        desc: itEl.querySelector('.f-desc').value.trim()
+      };
+    });
+    return { name: catEl.querySelector('.cat-name').value.trim() || 'Untitled', items: items };
+  })};
+  setMenuData(data);
+  return data;
+}
+
+async function saveMenu(){
+  readEditorIntoData();
+  renderMenuDisplay();
+  document.getElementById('edit-menu-btn').hidden = false;
+  const status = document.createElement('p');
+  status.className = 'edit-note';
+  status.id = 'save-status-msg';
+  document.getElementById('menu-display').after(status);
+
+  const artifact = await claude.use('artifact');
+  if(!artifact){
+    status.textContent = "Couldn't connect to save — your changes are only visible to you until this page is reopened.";
+    return;
+  }
+  try{
+    await artifact.publish(document.documentElement.outerHTML);
+    status.textContent = 'Menu saved for everyone viewing this page.';
+  }catch(err){
+    if(err && (err.code === 'not_granted' || err.code === 'not_writer')){
+      status.textContent = 'Only the page owner can save menu changes.';
+    } else {
+      status.textContent = "Couldn't save the menu — please try again.";
+    }
+  }
+}
+
+async function initOwnerTools(){
+  renderMenuDisplay();
+  try{
+    const user = await claude.use('user');
+    if(user && typeof user.isOwner === 'function' && await user.isOwner()){
+      const btn = document.getElementById('edit-menu-btn');
+      btn.hidden = false;
+      btn.onclick = renderMenuEditor;
+    }
+  }catch(e){ /* no owner tools available in this view */ }
+}
+initOwnerTools();
+</script>
+</body>
+</html>
